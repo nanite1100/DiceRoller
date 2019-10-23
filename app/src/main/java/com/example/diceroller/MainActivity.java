@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void on_button_click(View view){
+        //basic dice functionality
         TextView tv = this.findViewById(numberTextView);
 
         Random r = new Random();
@@ -72,8 +73,11 @@ public class MainActivity extends AppCompatActivity {
         tv.setText(Integer.toString(number));
 
         String inputNum = ((EditText)findViewById(inputText)).getText().toString();
-
+        //User input, comparison, and output
         int inNumber = 0;
+        //int score = 0;
+
+        TextView scoreOut = this.findViewById(scoreBox);
 
         if (inputNum.matches(""))
         {
@@ -84,9 +88,15 @@ public class MainActivity extends AppCompatActivity {
             inNumber = Integer.parseInt(inputNum);
         }
 
+        int score = 0;
         if (inNumber == number)
         {
-            Toast.makeText(this, "Congratulations, the numbers are equal.", Toast.LENGTH_SHORT).show();
+
+
+                Toast.makeText(this, "Congratulations, the numbers are equal.", Toast.LENGTH_SHORT).show();
+                scoreOut.setText(Integer.toString(score));
+                score = score + 1;
+
         }
     }
 }
