@@ -1,5 +1,6 @@
 package com.example.diceroller;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -11,20 +12,25 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
+
+import static com.example.diceroller.R.*;
+import static com.example.diceroller.R.id.*;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        setContentView(layout.activity_main);
+        Toolbar toolbar = findViewById(id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,19 +55,38 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("SetTextI18n")
     public void on_button_click(View view){
-        TextView tv = this.findViewById(R.id.numberTextView);
+        TextView tv = this.findViewById(numberTextView);
 
         Random r = new Random();
         int number = r.nextInt(7);
 
         tv.setText(Integer.toString(number));
+
+        String inputNum = ((EditText)findViewById(inputText)).getText().toString();
+
+        int inNumber = 0;
+
+        if (inputNum.matches(""))
+        {
+            Toast.makeText(this, "Enter a number.", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            inNumber = Integer.parseInt(inputNum);
+        }
+
+        if (inNumber == number)
+        {
+            Toast.makeText(this, "Congratulations, the numbers are equal.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
